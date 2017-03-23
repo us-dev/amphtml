@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 var argv = require('minimist')(process.argv.slice(2));
 var child_process = require('child_process');
 var gulp = require('gulp-help')(require('gulp'));
 var util = require('gulp-util');
-
 var percyCommand = 'percy snapshot';
 var defaultWidths = [375, 411];  // CSS widths: iPhone: 375, Pixel: 411.
 var percyProjectSeparator = '/';  // Standard format of repo slug: "foo/bar".

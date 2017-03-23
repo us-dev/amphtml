@@ -40,7 +40,7 @@ describes.sandboxed('Extension Location', {}, () => {
         pathname: 'examples/ads.amp.html',
         host: 'localhost:8000',
         protocol: 'http:',
-      }, 'amp-ad', true);
+      }, 'amp-ad', '0.1', true);
       expect(script).to.equal('http://localhost:8000/dist/rtv/123/v0/amp-ad-0.1.js');
     });
 
@@ -50,7 +50,7 @@ describes.sandboxed('Extension Location', {}, () => {
         pathname: 'examples/ads.amp.min.html',
         host: 'localhost:8000',
         protocol: 'http:',
-      }, 'amp-ad', false);
+      }, 'amp-ad', '0.1', false);
       expect(script).to.equal(
           'https://cdn.ampproject.org/rtv/123/v0/amp-ad-0.1.js');
     });
