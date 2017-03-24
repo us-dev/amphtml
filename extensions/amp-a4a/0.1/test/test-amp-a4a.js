@@ -715,7 +715,6 @@ describe('amp-a4a', () => {
         const renderAmpCreativeSpy = sandbox.spy(a4a, 'renderAmpCreative_');
         const loadExtensionSpy =
             sandbox.spy(Extensions.prototype, 'loadExtension');
-        debugger;
         a4a.onLayoutMeasure();
         expect(a4a.adPromise_).to.be.instanceof(Promise);
         return a4a.adPromise_.then(promiseResult => {
@@ -911,7 +910,6 @@ describe('amp-a4a', () => {
                 signature: base64UrlDecodeToBytes(validCSSAmp.signature),
               };
             }));
-        debugger;
         a4a.onLayoutMeasure();
         return a4a.layoutCallback().then(() => {
           expect(a4a.isVerifiedAmpCreative_).to.be.true;
