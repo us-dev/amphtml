@@ -110,7 +110,7 @@ describe('amp-a4a', () => {
         ampCors: false,
         credentials: 'omit',
       }).returns(
-        Promise.resolve(JSON.parse(validCSSAmp.signing_key)));
+        Promise.resolve(JSON.parse(validCSSAmp.signingKey)));
     viewerWhenVisibleMock = sandbox.stub(Viewer.prototype, 'whenFirstVisible');
     viewerWhenVisibleMock.returns(Promise.resolve());
     mockResponse = {
@@ -1700,7 +1700,7 @@ describe('amp-a4a', () => {
 
     it('should fetch multiple keys', () => {
       // For our purposes, re-using the same key is fine.
-      const testKeys = JSON.parse(validCSSAmp.signing_key);
+      const testKeys = JSON.parse(validCSSAmp.signingKey);
       testKeys.keys[1] = testKeys.keys[0];
       testKeys.keys[2] = testKeys.keys[0]
       xhrMockJson.withArgs(
@@ -1746,7 +1746,7 @@ describe('amp-a4a', () => {
             ampCors: false,
             credentials: 'omit',
           }).returns(
-              Promise.resolve(JSON.parse(validCSSAmp.signing_key)));
+              Promise.resolve(JSON.parse(validCSSAmp.signingKey)));
       expect(win.ampA4aValidationKeys).not.to.exist;
       // Key fetch happens on A4A class construction.
       const unusedA4a = new MockA4AImpl(a4aElement);  // eslint-disable-line no-unused-vars
