@@ -22,7 +22,6 @@ var defaultWidths = [375, 411];  // CSS widths: iPhone: 375, Pixel: 411.
 var percyProjectSeparator = '/';  // Standard format of repo slug: "foo/bar".
 var percyTokenLength = 64;  // Standard Percy API key length.
 
-
 /**
  * Executes the provided command; terminates this program in case of failure.
  * Copied from pr-check.js.
