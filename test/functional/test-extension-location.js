@@ -34,7 +34,7 @@ describes.sandboxed('Extension Location', {}, () => {
       initLogConstructor();
     });
 
-    it('with local mode', () => {
+    it('with local mode and version 0.1', () => {
       window.AMP_MODE = {rtvVersion: '123'};
       const script = calculateExtensionScriptUrl({
         pathname: 'examples/ads.amp.html',
@@ -42,6 +42,16 @@ describes.sandboxed('Extension Location', {}, () => {
         protocol: 'http:',
       }, 'amp-ad', '0.1', true);
       expect(script).to.equal('http://localhost:8000/dist/rtv/123/v0/amp-ad-0.1.js');
+    });
+
+    it('with local mode and version 1.0', () => {
+      window.AMP_MODE = {rtvVersion: '123'};
+      const script = calculateExtensionScriptUrl({
+        pathname: 'examples/ads.amp.html',
+        host: 'localhost:8000',
+        protocol: 'http:',
+      }, 'amp-ad', '1.0', true);
+      expect(script).to.equal('http://localhost:8000/dist/rtv/123/v0/amp-ad-1.0.js');
     });
 
     it('with remote mode', () => {
