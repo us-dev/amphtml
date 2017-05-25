@@ -44,6 +44,8 @@ import {isExperimentOn} from '../../../src/experiments';
 import {domFingerprintPlain} from '../../../src/utils/dom-fingerprint';
 import {insertAnalyticsElement} from '../../../src/analytics';
 import {setStyles} from '../../../src/style';
+import {timerFor} from '../../../src/services';
+import {RefreshManager} from '../../amp-a4a/0.1/refresh-manager';
 
 /** @const {string} */
 const DOUBLECLICK_BASE_URL =
@@ -81,6 +83,37 @@ export class AmpAdNetworkDoubleclickImpl extends AmpA4A {
 
     /** @private {?Element} */
     this.ampAnalyticsElement_ = null;
+
+        /** @private @const {!RefreshManager}  */
+    this.refreshManager_ =
+        new RefreshManager(this.win, this.element, refresher => {
+          this.isRefreshing = true;
+          this.unlayoutCallback();
+          this.onLayoutMeasure();
+          this.adPromise.then(() => {
+            if (!this.isRefreshing) {
+              // If this refresh cycle was canceled, such as in a no-content
+              // response case, keep showing the old creative.
+              refresher.initiateRefreshCycle();
+              return;
+            }
+            this.togglePlaceholder(true);
+            this.destroyFrame(true);
+            // We don't want the next creative to appear too suddenly, so we
+            // show the loader for a quarter of a second before switching to
+            // the new creative.
+            timerFor(this.win).delay(() => {
+              this.layoutCallback().then(() => {
+                this.isRefreshing = false;
+                this.togglePlaceholder(false);
+                // Restart refresh cycle.
+                refresher.initiateRefreshCycle();
+              });
+            }, 250);
+          });
+        });
+
+    this.refreshManager_.initiateRefreshCycle();
   }
 
   /** @override */
